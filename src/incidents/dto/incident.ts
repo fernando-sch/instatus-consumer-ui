@@ -1,20 +1,30 @@
-import { RemoteIncidentUpdate, buildIncidentUpdateDTO } from '@/incidents/dto/incident-update';
+import { IncomeStatementStatusEnum } from '@/incidents/enums/incident-status-enum';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 type RemoteIncident = {
   impact: string;
   name: string;
-  status: string;
+  status: IncomeStatementStatusEnum;
   url: string;
   resolved_at: string;
   updated_at: string;
   created_at: string;
-  incident_updates: RemoteIncidentUpdate[];
 };
 
 export class Incident {
-  constructor(private readonly remoteIncident: RemoteIncident) {
-    this.remoteIncident.incident_updates = remoteIncident.incident_updates.map(buildIncidentUpdateDTO);
-  }
+  private static readonly statusMessages = {
+    [IncomeStatementStatusEnum.Investigating]: 'Investigando',
+    [IncomeStatementStatusEnum.Identified]: 'Identificado',
+    [IncomeStatementStatusEnum.Monitoring]: 'Monitorando',
+    [IncomeStatementStatusEnum.Resolved]: 'Resolvido',
+  };
+
+  constructor(private readonly remoteIncident: RemoteIncident) {}
 
   get impact() {
     return this.remoteIncident.impact;
@@ -25,27 +35,20 @@ export class Incident {
   }
 
   get status() {
-    return this.remoteIncident.status;
+    return Incident.statusMessages[this.remoteIncident.status] || '';
   }
 
   get url() {
     return this.remoteIncident.url;
   }
 
-  get resolvedAt() {
-    return this.remoteIncident.resolved_at;
-  }
+  get formatedCreatedAt() {
+    const formatedDateTime = dayjs
+      .utc(this.remoteIncident.created_at)
+      .tz('America/Sao_Paulo')
+      .format('DD/MM/YYYY [ás] HH:mm');
 
-  get updatedAt() {
-    return this.remoteIncident.updated_at;
-  }
-
-  get createdAt() {
-    return this.remoteIncident.created_at;
-  }
-
-  get incidentUpdates() {
-    return this.remoteIncident.incident_updates;
+    return formatedDateTime;
   }
 }
 
