@@ -1,4 +1,4 @@
-import { IncidentPage } from 'incidents/pages/incident-page';
+import { IncidentPage } from 'incidents/pages/incidents-page';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([{ path: '/', element: <IncidentPage /> }]);

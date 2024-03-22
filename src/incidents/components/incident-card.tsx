@@ -1,12 +1,12 @@
-import { Incident } from '@/incidents/dto/incident';
+import { Incident } from 'incidents/dto/incident';
 
-type IncidentCardType = {
+type IncidentCardProps = {
   incident: Incident;
 };
 
-export const IncidentCard = ({ incident }: IncidentCardType) => {
+export const IncidentCard = ({ incident }: IncidentCardProps) => {
   return (
-    <div className="max-w-3xl p-3 border border-gray-400 rounded-lg bg-[#1B1B1B]">
+    <div className="max-w-3xl p-3 bg-[#1B1B1B]">
       <p className="mb-2 font-bold text-white">{incident.name}</p>
       <p className="text-gray-400">
         Criado em: <span className="text-gray-300">{incident.formatedCreatedAt}</span>
