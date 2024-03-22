@@ -1,4 +1,4 @@
-import { IncomeStatementStatusEnum } from '@/incidents/enums/incident-status-enum';
+import { IncomeStatementStatusEnum } from 'incidents/enums/incident-status-enum';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
