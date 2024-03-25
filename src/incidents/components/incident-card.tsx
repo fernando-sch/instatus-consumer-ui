@@ -17,6 +17,8 @@ export const IncidentCard = ({ incident }: IncidentCardProps) => {
       <a
         href={incident.url}
         className="mb-3 inline-flex gap-1 items-center px-2 py-1 font-medium text-center text-[#1B1B1B] bg-white rounded-lg hover:bg-gray-100 focus:outline-none"
+        rel="noreferrer"
+        target="_blank"
       >
         Saiba mais
         <svg
